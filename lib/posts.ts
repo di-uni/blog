@@ -22,9 +22,8 @@ export function getAllPostIds() {
 export async function getPostData(id: string) {
     const fullPath = path.join(postsDirectory, `${id}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
-    console.log("******\n", fileContents)
+    // console.log("******\n", fileContents)
     const fmfile = fm(fileContents).body
-    // const fmfile = JSON.stringify(fm(fileContents))
     console.log(fmfile)
     const postData = await unified()
         .use(remarkParse)
@@ -38,4 +37,9 @@ export async function getPostData(id: string) {
         id,
         ...postData
     }
+}
+
+export async function getPostList() {
+    const fileNames = fs.readdirSync(postsDirectory);
+    return fileNames.map(fileName => fileName.replace(/\.md$/, ''))
 }
