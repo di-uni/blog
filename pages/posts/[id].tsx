@@ -1,9 +1,8 @@
-import { useRouter } from 'next/router'
 import { getAllPostIds, getPostData }  from '../../lib/posts'
 
 export async function getStaticPaths() {
     const paths = getAllPostIds();
-    console.log(paths);
+    // console.log(paths);
     return { paths, fallback: false };
 
     // 참고: api 콜을 사용할 땐
@@ -20,21 +19,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
     const postData = await getPostData(params.id);
-    // console.log("Here", postData)
-    const post = postData.value
+    // console.log(postData);
+    // const post = JSON.parse(postData.value);
     return {
       props: {
-        post,
+        postData,
       }
     }
   }
 
-const Post = ({post}:any) => {
-    const router = useRouter();
-    const { id } = router.query;
-
-    console.log(post);
-    const markup = {__html: post}
+const Post = ({ postData }:any) => {
+    // console.log(postData);
+    const markup = {__html: postData.value}
     return <div dangerouslySetInnerHTML={markup} />
 }
 
