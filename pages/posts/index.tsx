@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getPostList }  from '../../lib/posts'
 import styles from '../../styles/Home.module.css'
 
@@ -18,11 +19,12 @@ const PostList = ({ postList }: any) => {
       <div className={styles.grid}>
         {postList ? postList.map((title: any) => {
             return (
-                // <a key={title} href={`http://localhost:3000/posts/${title}`} className={styles.card}>
-                <a key={title} href={`https://di-uni-blog.vercel.app/posts/${title}`} className={styles.card}>
-                    <h2>{title} &rarr;</h2>
-                    <p>Descriptions..... </p>
-                </a>
+                <Link key={title} href={`/posts/${title}`}>
+                    <a className={styles.card}>
+                        <h2>{title} &rarr;</h2>
+                        <p>Descriptions..... </p>
+                    </a>
+                </Link>
             )})
         : null}
       </div>
