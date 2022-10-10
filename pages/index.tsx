@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
-import PostList from './posts'
 
 const Home: NextPage = () => {
   return (
@@ -19,25 +19,12 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          {/* <a href="http://localhost:3000/posts/"> */}
-          <a href="https://di-uni-blog.vercel.app/posts/">
-            <code className={styles.code}>posts</code>
-          </a>
+          <Link href="/posts">
+            <a>
+              <code className={styles.code}>posts</code>
+            </a>
+          </Link>
         </p>
-
-        {/* <div className={styles.grid}>
-          <a href="http://localhost:3000/posts/example" className={styles.card}>
-            <h2>Posts &rarr;</h2>
-            <p>Discover posts about FE such as JavaScript, Next.js</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-        </div> */}
-        {/* <PostList/> */}
-
       </main>
 
       {/* <footer className={styles.footer}>
