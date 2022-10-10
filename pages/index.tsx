@@ -19,7 +19,8 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          <a href="http://localhost:3000/posts/">
+          {/* <a href="http://localhost:3000/posts/"> */}
+          <a href="https://di-uni-blog.vercel.app/posts/">
             <code className={styles.code}>posts</code>
           </a>
         </p>
