@@ -1,10 +1,22 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
+import { getPostList } from '../lib/posts'
 import styles from '../styles/Home.module.css'
 
-const Home: NextPage = () => {
+export async function getStaticProps() {
+  const postList = await getPostList();
+  // console.log("heyyy", postList)
+  // const post = JSON.parse(postData.value)
+  return {
+    props: {
+      postList,
+    }
+  }
+}
+
+const Home: NextPage = ({ postList }: any) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -19,26 +31,20 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          <Link href="/posts">
-            <a>
-              <code className={styles.code}>posts</code>
-            </a>
-          </Link>
         </p>
+        <div className={styles.grid}>
+          {postList ? postList.map((title: any) => {
+              return (
+                  <Link key={title} href={`/posts/${title}`}>
+                      <a className={styles.card}>
+                          <h2>{title} &rarr;</h2>
+                          <p>Descriptions..... </p>
+                      </a>
+                  </Link>
+              )})
+          : null}
+        </div>
       </main>
-
-      {/* <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer> */}
     </div>
   )
 }
