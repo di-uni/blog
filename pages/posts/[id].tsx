@@ -1,37 +1,13 @@
-import { getAllPostIds, getPostData }  from '../../lib/posts'
+import { useRouter } from 'next/router';
 
-export async function getStaticPaths() {
-    const paths = getAllPostIds();
-    // console.log(paths);
-    return { paths, fallback: false };
+const PostPage = () => {
+    const router = useRouter();
+    const data = router.query;
+    const id = data.id;
 
-    // 참고: api 콜을 사용할 땐
-    // const res = await fetch('http://.../posts')
-    // const posts = await res.json()
-    
-    // const paths = posts.map((post) => ({
-    //   params: { id: post.id },
-    // }))
-    
-    // return { paths, fallback: false }
-  
-}
-
-export async function getStaticProps({ params }: any) {
-    const postData = await getPostData(params.id);
-    // console.log(postData);
-    // const post = JSON.parse(postData.value);
-    return {
-      props: {
-        postData,
-      }
-    }
-  }
-
-const Post = ({ postData }:any) => {
-    // console.log(postData);
-    const markup = {__html: postData.value}
+    const value = data && typeof id === "string" ? data[id] as string: "데이터를 불러올 수 없습니다.";
+    const markup = { __html: value };
     return <div dangerouslySetInnerHTML={markup} />
 }
 
-export default Post
+export default PostPage

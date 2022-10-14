@@ -22,20 +22,20 @@ export function getAllPostIds() {
 export async function getPostData(id: string) {
     const fullPath = path.join(postsDirectory, `${id}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
-    // console.log("******\n", fileContents)
     const fmfile = fm(fileContents).body
-    console.log(fmfile)
     const postData = await unified()
         .use(remarkParse)
         .use(remarkHtml)
         .process(fmfile)
-        // .process(fileContents)
     // const matterResult = matter(fileContents)
-    console.log(postData)
 
+    // return {
+    //     id,
+    //     postData: postData
+    //     // ...postData
+    // }
     return {
-        id,
-        ...postData
+        [id]: postData.value
     }
 }
 
